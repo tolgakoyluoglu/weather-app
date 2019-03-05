@@ -1,13 +1,15 @@
-import React, { Component } from 'react'
+import React from 'react'
 
-export default class Search extends Component {
-    render() {
-        return (
-            <form className="searchForm" onSubmit={this.props.getLocationThenWeather}>
-                <input name="city" type="text" placeholder="Search for a city..."></input>
-                <button className="submitBtn" type="submit">Search</button>
-            </form>
-        )
-    }
+const Search = (props) => {
+
+    return (
+        <form className="searchForm" onSubmit={props.getLocationThenWeather}>
+            <input name="search" type="text" placeholder="Search for a city..."></input>
+            <button className="submitBtn" type="submit">Search</button>
+        </form>
+    )
+
 }
+
+export default Search
 

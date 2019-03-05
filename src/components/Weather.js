@@ -6,6 +6,9 @@ export default class Weather extends Component {
 
     state = {
         weeklyWeather: [],
+        weeklyWeatherSearch: [],
+        lat: [],
+        lng: [],
         apparentTemperature: [],
         icon: [],
         temperature: [],
@@ -40,6 +43,27 @@ export default class Weather extends Component {
         }
     }
 
+    getLocationThenWeather = (query) => {
+        axios.get(`http://open.mapquestapi.com/geocoding/v1/address?key=D3bucmtmT9Y2J2ObSbiR3pVOsaB4baUE&location=${query}`)
+            .then(res => {
+                console.log(res.data)
+                this.setState({
+                    lat: res.data.results[0].locations[0].latLng.lat,
+                    lng: res.data.results[0].locations[0].latLng.lng,
+                })
+                //  console.log(this.state)
+            })
+            .then(() => {
+                axios.get(`https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/a454df907d79a1e59fe04ca230be5860/${this.state.lat}, ${this.state.lng}?units=si`)
+                    .then(res => {
+                        this.setState({
+                            weeklyWeatherSearch: res.data.daily.data,
+                        })
+                        console.log(this.state)
+                    })
+            })
+    }
+
     render() {
         //loop thro sarch results and render
         const weeklyWeather = this.state.weeklyWeather
@@ -55,7 +79,7 @@ export default class Weather extends Component {
                         <li className="list-group-item">Max: <strong>{weatherPerDay.temperatureMax}°C</strong></li>
                         <li className="list-group-item">Min: <strong> {weatherPerDay.temperatureMin}°C</strong></li>
                         <li className="list-group-item">Sunrise:  {new Date(weatherPerDay.sunriseTime * 1000).toTimeString()}</li>
-                        <li className="list-group-item">Sundown:  {new Date(weatherPerDay.sunsetTime * 1000).toTimeString()}</li>
+                        <li className="list-group-item">Sunset:  {new Date(weatherPerDay.sunsetTime * 1000).toTimeString()}</li>
                     </ul>
                 </div>
             )
