@@ -6,9 +6,6 @@ export default class Weather extends Component {
 
     state = {
         weeklyWeather: [],
-        weeklyWeatherSearch: [],
-        lat: [],
-        lng: [],
         apparentTemperature: [],
         icon: [],
         temperature: [],
@@ -41,27 +38,6 @@ export default class Weather extends Component {
         else {
             console.log('Could not get position, please search for a city')
         }
-    }
-
-    getLocationThenWeather = (query) => {
-        axios.get(`http://open.mapquestapi.com/geocoding/v1/address?key=D3bucmtmT9Y2J2ObSbiR3pVOsaB4baUE&location=${query}`)
-            .then(res => {
-                console.log(res.data)
-                this.setState({
-                    lat: res.data.results[0].locations[0].latLng.lat,
-                    lng: res.data.results[0].locations[0].latLng.lng,
-                })
-                //  console.log(this.state)
-            })
-            .then(() => {
-                axios.get(`https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/a454df907d79a1e59fe04ca230be5860/${this.state.lat}, ${this.state.lng}?units=si`)
-                    .then(res => {
-                        this.setState({
-                            weeklyWeatherSearch: res.data.daily.data,
-                        })
-                        console.log(this.state)
-                    })
-            })
     }
 
     render() {
