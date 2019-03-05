@@ -13,11 +13,11 @@ body {
   justify-content: center;
 }
 
-.card {
+.card-two {
   width: 20%; 
   padding: 0px;
   margin: 1px;
-  border: 2px solid teal
+  border: 2px solid teal;
 }
 
 .searchForm {
@@ -84,6 +84,36 @@ p {
 
 .celsius {
   width: 10%;
+}
+
+.card {
+  width: 80%;
+  background-color: #fff;
+  border: 2px solid teal;
+}
+
+.img-wrap {
+  width: 50%;
+  margin: auto;
+}
+
+.wrap {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  padding-bottom: 30px;
+  padding-top: 30px;
+}
+
+.wrap-two {
+  width: 100%; 
+  display: flex;
+  width: 100%;
+  margin: auto;    
+  flex-wrap: wrap;
+  justify-content: center;
+  padding-top: 30px;
+  padding-bottom: 30px;
 }
 
 footer {
