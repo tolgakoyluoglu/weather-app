@@ -5,7 +5,6 @@ import Footer from './components/Footer';
 import Weather from './components/Weather';
 import Search from './components/Search';
 import WeatherSearch from './components/WeatherSearch';
-import WeatherHourly from './components/WeatherHourly';
 
 class App extends Component {
   state = {
@@ -61,7 +60,6 @@ class App extends Component {
         <Navbar />
         <Search getLocationThenWeather={this.getLocationThenWeather} />
         <Weather />
-        <WeatherHourly />
         <WeatherSearch
           weeklyWeatherSearch={this.state.weeklyWeatherSearch}
           apparentTemperature={this.state.apparentTemperature}
