@@ -4,14 +4,22 @@ import Navbar from './components/Navbar'
 import Footer from './components/Footer';
 import Weather from './components/Weather';
 import Search from './components/Search';
+import WeatherSearch from './components/WeatherSearch';
 
 class App extends Component {
 
   state = {
-    weeklyWeather: [],
     weeklyWeatherSearch: [],
     lat: [],
     lng: [],
+    apparentTemperature: [],
+    icon: [],
+    temperature: [],
+    time: [],
+    humidity: [],
+    windSpeed: [],
+    summary: [],
+    city: [],
   }
 
   getLocationThenWeather = (e) => {
@@ -28,18 +36,21 @@ class App extends Component {
         fetch(`https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/a454df907d79a1e59fe04ca230be5860/${this.state.lat}, ${this.state.lng}?units=si`)
           .then(res => res.json())
           .then(data => {
-            console.log(data)
             this.setState({
-              weeklyWeatherSearch: data.daily.data
+              weeklyWeatherSearch: data.daily.data,
+              apparentTemperature: data.currently.apparentTemperature,
+              icon: data.currently.icon,
+              temperature: data.currently.temperature,
+              time: data.currently.time,
+              humidity: data.currently.humidity,
+              windSpeed: data.currently.windSpeed,
+              summary: data.currently.summary,
+              city: data.timezone
             })
             console.log(this.state)
           })
       })
   }
-
-
-
-
 
   render() {
 
@@ -48,6 +59,17 @@ class App extends Component {
         <Navbar />
         <Search getLocationThenWeather={this.getLocationThenWeather} />
         <Weather />
+        <WeatherSearch
+          weeklyWeatherSearch={this.state.weeklyWeatherSearch}
+          apparentTemperature={this.state.apparentTemperature}
+          icon={this.state.icon}
+          temperature={this.state.temperature}
+          time={this.state.time}
+          humidity={this.state.humidity}
+          windSpeed={this.state.windSpeed}
+          summary={this.state.summary}
+          city={this.state.city}
+        />
         <Footer />
       </div>
     );

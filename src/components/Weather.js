@@ -13,6 +13,7 @@ export default class Weather extends Component {
         humidity: [],
         windSpeed: [],
         summary: [],
+        city: [],
     }
 
     //Get weather based on geolocation
@@ -31,8 +32,9 @@ export default class Weather extends Component {
                             humidity: res.data.currently.humidity,
                             windSpeed: res.data.currently.windSpeed,
                             summary: res.data.currently.summary,
+                            city: res.data.timezone
                         })
-                        //console.log(this.state)
+                        console.log(this.state)
                     })
             })
         }
@@ -66,7 +68,7 @@ export default class Weather extends Component {
 
         return (
             <div className="container">
-                <h5>Current Weather</h5>
+                <h5>Current Weather in {this.state.city}</h5>
                 <div className="wrap">
                     <div className="card">
                         <div className="card-body">
@@ -85,7 +87,7 @@ export default class Weather extends Component {
                         </ul>
                     </div>
                 </div>
-                <h5>Weekly Weather</h5>
+                <h5>Weekly Weather in {this.state.city}</h5>
                 <div className="wrap-two">
                     {weeklyWeatherList}
                 </div>
