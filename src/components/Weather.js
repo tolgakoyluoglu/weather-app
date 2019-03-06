@@ -14,6 +14,7 @@ export default class Weather extends Component {
         windSpeed: [],
         summary: [],
         city: [],
+        hourly: [],
     }
 
     //Get weather based on geolocation
@@ -33,7 +34,8 @@ export default class Weather extends Component {
                             humidity: res.data.currently.humidity,
                             windSpeed: res.data.currently.windSpeed,
                             summary: res.data.currently.summary,
-                            city: res.data.timezone
+                            city: res.data.timezone,
+                            hourly: res.data.hourly.data
                         })
                         console.log(this.state)
                     })
@@ -44,7 +46,16 @@ export default class Weather extends Component {
         }
     }
 
+    weatherHour = () => {
+        let hourly = this.state.hourly
+        console.log(hourly)
+        for (let i = 0; i < 24; i += 3) {
+            console.log(hourly[i])
+        }
+    }
+
     render() {
+
 
         //Stats of current weather 
         //loop thro sarch results and render
@@ -60,8 +71,8 @@ export default class Weather extends Component {
                     <ul className="list-group list-group-flush">
                         <li className="list-group-item">Max: <strong>{weatherPerDay.temperatureMax}°</strong></li>
                         <li className="list-group-item">Min: <strong> {weatherPerDay.temperatureMin}°</strong></li>
-                        <li className="list-group-item">Sunrise:  {new Date(weatherPerDay.sunriseTime * 1000).toTimeString()}</li>
-                        <li className="list-group-item">Sunset:  {new Date(weatherPerDay.sunsetTime * 1000).toTimeString()}</li>
+                        <li className="list-group-item-one">Sunrise:  {new Date(weatherPerDay.sunriseTime * 1000).toTimeString()}</li>
+                        <li className="list-group-item-one">Sunset:  {new Date(weatherPerDay.sunsetTime * 1000).toTimeString()}</li>
                     </ul>
                 </div>
             )
@@ -93,6 +104,7 @@ export default class Weather extends Component {
                         {weeklyWeatherList}
                     </div>
                 </div>
+                <button onClick={this.weatherHour}>hej</button>
             </section>
         )
     }

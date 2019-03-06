@@ -16,8 +16,8 @@ export default class WeatherSearch extends Component {
                     <ul className="list-group list-group-flush">
                         <li className="list-group-item">Max: <strong>{weatherPerDay.temperatureMax}°</strong></li>
                         <li className="list-group-item">Min: <strong> {weatherPerDay.temperatureMin}°</strong></li>
-                        <li className="list-group-item">Sunrise:  {new Date(weatherPerDay.sunriseTime * 1000).toTimeString()}</li>
-                        <li className="list-group-item">Sunset:  {new Date(weatherPerDay.sunsetTime * 1000).toTimeString()}</li>
+                        <li className="list-group-item-one">Sunrise:  {new Date(weatherPerDay.sunriseTime * 1000).toTimeString()}</li>
+                        <li className="list-group-item-one">Sunset:  {new Date(weatherPerDay.sunsetTime * 1000).toTimeString()}</li>
                     </ul>
                 </div>
             )
