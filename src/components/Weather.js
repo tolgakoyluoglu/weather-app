@@ -18,6 +18,7 @@ export default class Weather extends Component {
 
     //Get weather based on geolocation
     componentDidMount() {
+        document.querySelector('.container-two').style.display = 'none';
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition((position) => {
                 axios.get(`https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/a454df907d79a1e59fe04ca230be5860/${position.coords.latitude},${position.coords.longitude}?units=si`)
@@ -67,31 +68,32 @@ export default class Weather extends Component {
         })
 
         return (
-            <div className="container">
-                <h5>Current Weather in {this.state.city}</h5>
-                <div className="wrap">
-                    <div className="card">
-                        <div className="card-body">
-                            <h5 className="card-title">{new Date(this.state.time * 1000).toDateString()}</h5>
-                            <p className="temp">{this.state.temperature}°</p>
-                            <div className="img-wrap">
-                                <CurrentIcon icon={this.state.icon} />
+            <section>
+                <div className="container-one">
+                    <h5>Weather in {this.state.city}</h5>
+                    <div className="wrap">
+                        <div className="card">
+                            <div className="card-body">
+                                <h5 className="card-title">{new Date(this.state.time * 1000).toDateString()}</h5>
+                                <p className="temp">{this.state.temperature}°</p>
+                                <div className="img-wrap">
+                                    <CurrentIcon icon={this.state.icon} />
+                                </div>
+                                <p className="card-text">{this.state.summary}</p>
                             </div>
-                            <p className="card-text">{this.state.summary}</p>
+                            <ul className="list-group list-group-flush">
+                                <li className="list-group-item">Windspeed: {this.state.windSpeed}</li>
+                                <li className="list-group-item">Humidity: {this.state.humidity}</li>
+                                <li className="list-group-item">Temperature: {this.state.temperature}</li>
+                                <li className="list-group-item">Feels like: {this.state.apparentTemperature}</li>
+                            </ul>
                         </div>
-                        <ul className="list-group list-group-flush">
-                            <li className="list-group-item">Windspeed: {this.state.windSpeed}</li>
-                            <li className="list-group-item">Humidity: {this.state.humidity}</li>
-                            <li className="list-group-item">Temperature: {this.state.temperature}</li>
-                            <li className="list-group-item">Feels like: {this.state.apparentTemperature}</li>
-                        </ul>
+                    </div>
+                    <div className="wrap-two">
+                        {weeklyWeatherList}
                     </div>
                 </div>
-                <h5>Weekly Weather in {this.state.city}</h5>
-                <div className="wrap-two">
-                    {weeklyWeatherList}
-                </div>
-            </div>
+            </section>
         )
     }
 }

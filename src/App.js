@@ -24,6 +24,8 @@ class App extends Component {
 
   getLocationThenWeather = (e) => {
     e.preventDefault();
+    document.querySelector('.container-one').style.display = 'none';
+    document.querySelector('.container-two').style.display = '';
     const searchString = e.target.elements.search.value;
     fetch(`http://open.mapquestapi.com/geocoding/v1/address?key=D3bucmtmT9Y2J2ObSbiR3pVOsaB4baUE&location=${searchString}`).then(res => res.json())
       .then(data => {

@@ -5,7 +5,15 @@ body {
   height: 100%;
 }
 
-.container {
+.container-two {
+  display: flex;
+  width: 100%;
+  margin: auto;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.container-one {
   display: flex;
   width: 100%;
   margin: auto;
@@ -132,7 +140,7 @@ footer {
 }
 
 @media (min-width: 1200px) {
-  .container {
-    max-width: 90%;
+  .container-one {
+    max-width: 100%;
   }
 }
