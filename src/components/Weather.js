@@ -1,6 +1,10 @@
 import React, { Component } from 'react'
 import axios from 'axios';
 import CurrentIcon from './Icon'
+import WeatherHourly from './WeatherHourly';
+
+const darkskyKey = 'a454df907d79a1e59fe04ca230be5860';
+const darkskyBaseUrl = 'https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/';
 
 export default class Weather extends Component {
 
@@ -17,12 +21,11 @@ export default class Weather extends Component {
         hourly: [],
     }
 
-    //Get weather based on geolocation
     componentDidMount() {
         document.querySelector('.container-two').style.display = 'none';
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition((position) => {
-                axios.get(`https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/a454df907d79a1e59fe04ca230be5860/${position.coords.latitude},${position.coords.longitude}?units=si`)
+                axios.get(`${darkskyBaseUrl}${darkskyKey}/${position.coords.latitude},${position.coords.longitude}?units=si`)
                     .then(res => {
                         console.log(res);
                         this.setState({
@@ -46,19 +49,45 @@ export default class Weather extends Component {
         }
     }
 
-    weatherHour = () => {
-        let hourly = this.state.hourly
-        console.log(hourly)
-        for (let i = 0; i < 24; i += 3) {
-            console.log(hourly[i])
-        }
-    }
+
+    /*   let hourly = this.state.hourly.map(weatherPerHour => {
+          return (
+              <div>
+                  <p>{weatherPerHour.time}</p>
+              </div>
+          )
+      })
+   */
+    /*     weatherHour = () => {
+            let hourly = this.state.hourly
+            for (let i = 0; i < 24; i += 3) {
+                const hourlyWeather = []
+                const temp = hourly[i]['temperature']
+                const time = hourly[i]['time']
+                const icon = hourly[i]['icon']
+                const summary = hourly[i]['summary']
+                console.log(temp, time, icon, hourlyWeather)
+                hourlyWeather.push(temp, time, icon, summary)
+                const weatherPerHourList = hourlyWeather.map(weatherPerHour => {
+                    return (
+                        <div>
+                            <p>{weatherPerHour[0]}</p>
+                        </div>
+                    )
+                })
+            }
+        } */
 
     render() {
+        const hourlyWeather = this.state.hourly
+        const hourlyWeatherList = hourlyWeather.map(weatherPerHourly => {
+            return (
+                <div>
+                    <p>{weatherPerHourly.temperature}</p>
+                </div>
+            )
+        })
 
-
-        //Stats of current weather 
-        //loop thro sarch results and render
         const weeklyWeather = this.state.weeklyWeather
         const weeklyWeatherList = weeklyWeather.map(weatherPerDay => {
             return (
@@ -103,8 +132,9 @@ export default class Weather extends Component {
                     <div className="wrap-two">
                         {weeklyWeatherList}
                     </div>
+                    {hourlyWeatherList}
                 </div>
-                <button onClick={this.weatherHour}>hej</button>
+                <WeatherHourly hourly={this.state.hourly} />
             </section>
         )
     }

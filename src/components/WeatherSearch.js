@@ -23,10 +23,8 @@ export default class WeatherSearch extends Component {
             )
         }),
 
-            weather = () => {
-
+            weatherSearchResult = () => {
                 if (this.props.temperature !== null) {
-
                     return (
                         <div className="container-two">
                             <h5>Weather in {this.props.city}</h5>
@@ -59,7 +57,7 @@ export default class WeatherSearch extends Component {
 
         return (
             <section>
-                {weather()}
+                {weatherSearchResult()}
                 <div className="wrap-two">
                     {weeklyWeatherList}
                 </div>
