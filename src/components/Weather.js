@@ -49,45 +49,7 @@ export default class Weather extends Component {
         }
     }
 
-
-    /*   let hourly = this.state.hourly.map(weatherPerHour => {
-          return (
-              <div>
-                  <p>{weatherPerHour.time}</p>
-              </div>
-          )
-      })
-   */
-    /*     weatherHour = () => {
-            let hourly = this.state.hourly
-            for (let i = 0; i < 24; i += 3) {
-                const hourlyWeather = []
-                const temp = hourly[i]['temperature']
-                const time = hourly[i]['time']
-                const icon = hourly[i]['icon']
-                const summary = hourly[i]['summary']
-                console.log(temp, time, icon, hourlyWeather)
-                hourlyWeather.push(temp, time, icon, summary)
-                const weatherPerHourList = hourlyWeather.map(weatherPerHour => {
-                    return (
-                        <div>
-                            <p>{weatherPerHour[0]}</p>
-                        </div>
-                    )
-                })
-            }
-        } */
-
     render() {
-        const hourlyWeather = this.state.hourly
-        const hourlyWeatherList = hourlyWeather.map(weatherPerHourly => {
-            return (
-                <div>
-                    <p>{weatherPerHourly.temperature}</p>
-                </div>
-            )
-        })
-
         const weeklyWeather = this.state.weeklyWeather
         const weeklyWeatherList = weeklyWeather.map(weatherPerDay => {
             return (
@@ -132,7 +94,6 @@ export default class Weather extends Component {
                     <div className="wrap-two">
                         {weeklyWeatherList}
                     </div>
-                    {hourlyWeatherList}
                 </div>
                 <WeatherHourly hourly={this.state.hourly} />
             </section>
