@@ -9,7 +9,24 @@ body {
   grid-template-rows: auto 1fr auto;
 }
 
+.wrap-three {
+  display: flex;
+  width: 81%;
+  justify-content: center;
+  padding-bottom: 30px;
+  padding-top: 30px;
+}
 
+.card-hour {
+  width: 13%; 
+  padding: 0px;
+  margin: 2px;
+  border: 2px solid teal;
+}
+
+.card-body-hour {
+  text-align: center;
+}
 
 .container-two {
   display: flex;

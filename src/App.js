@@ -38,6 +38,7 @@ class App extends Component {
           lat: data.results[0].locations[0].latLng.lat,
           lng: data.results[0].locations[0].latLng.lng,
         })
+        console.log(this.state)
       })
       .then(() => {
         fetch(`${darkskyBaseUrl}${darkskyKey}/${this.state.lat}, ${this.state.lng}?units=si`)

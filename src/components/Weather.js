@@ -45,7 +45,9 @@ export default class Weather extends Component {
             })
         }
         else {
-            console.log('Could not get position, please search for a city')
+            return (
+                <p>Loading...</p>
+            )
         }
     }
 
@@ -91,11 +93,11 @@ export default class Weather extends Component {
                             </ul>
                         </div>
                     </div>
+                    <WeatherHourly hourly={this.state.hourly} />
                     <div className="wrap-two">
                         {weeklyWeatherList}
                     </div>
                 </div>
-                <WeatherHourly hourly={this.state.hourly} />
             </section>
         )
     }
