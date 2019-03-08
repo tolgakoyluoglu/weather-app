@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
 import CurrentIcon from './Icon'
 
+
 export default class WeatherSearch extends Component {
     render() {
+
 
         const weeklyWeather = this.props.weeklyWeatherSearch
         const weeklyWeatherList = weeklyWeather.map(weatherPerDay => {
@@ -11,13 +13,12 @@ export default class WeatherSearch extends Component {
                     <div className="card-body">
                         <h5 className="card-title">{new Date(weatherPerDay.time * 1000).toDateString()} {weatherPerDay.city}</h5>
                         <CurrentIcon icon={weatherPerDay.icon} />
-                        <p className="card-text">{weatherPerDay.summary}</p>
                     </div>
                     <ul className="list-group list-group-flush">
                         <li className="list-group-item">Max: <strong>{weatherPerDay.temperatureMax}°</strong></li>
                         <li className="list-group-item">Min: <strong> {weatherPerDay.temperatureMin}°</strong></li>
-                        <li className="list-group-item-one">Sunrise:  {new Date(weatherPerDay.sunriseTime * 1000).toTimeString()}</li>
-                        <li className="list-group-item-one">Sunset:  {new Date(weatherPerDay.sunsetTime * 1000).toTimeString()}</li>
+                        <li className="list-group-item-one">Sunrise:  {new Date(weatherPerDay.sunriseTime * 1000).toLocaleString('it-IT')}</li>
+                        <li className="list-group-item-one">Sunset:  {new Date(weatherPerDay.sunsetTime * 1000).toLocaleString('it-IT')}</li>
                     </ul>
                 </div>
             )
@@ -50,19 +51,47 @@ export default class WeatherSearch extends Component {
                     )
                 } else {
                     return (
-                        <h1>Something went wrong, please try search again</h1>
+                        <div className="loading">
+                            <p>No results please try search again</p>
+                        </div>
                     )
                 }
             }
 
+        let hourly = this.props.hourly
+        let result = []
+
+        for (let i = 0; i < 24; i += 3) {
+            if (hourly[i]) {
+                result.push(hourly[i])
+            }
+        }
+
+        let weatherData;
+        if (result.length > 0) {
+            weatherData = result.map(data => {
+                return (
+                    <div className="card-hour">
+                        <div className="card-body-hour">
+                            <h5 className="card-title">{new Date(data.time * 1000).toLocaleString('en-US')}</h5>
+                            <CurrentIcon icon={data.icon} />
+                            <p>{data.temperature}</p>
+                        </div>
+                    </div>
+                )
+            })
+        }
+
         return (
             <section>
                 {weatherSearchResult()}
+                <div className="wrap-three">{weatherData}</div>
                 <div className="wrap-two">
                     {weeklyWeatherList}
                 </div>
             </section>
         )
+
     }
 }
 

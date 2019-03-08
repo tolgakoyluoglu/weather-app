@@ -25,6 +25,8 @@ class App extends Component {
     windSpeed: [],
     summary: [],
     city: [],
+    hourly: [],
+    isLoading: true
   }
 
   getLocationThenWeather = (e) => {
@@ -38,7 +40,6 @@ class App extends Component {
           lat: data.results[0].locations[0].latLng.lat,
           lng: data.results[0].locations[0].latLng.lng,
         })
-        console.log(this.state)
       })
       .then(() => {
         fetch(`${darkskyBaseUrl}${darkskyKey}/${this.state.lat}, ${this.state.lng}?units=si`)
@@ -53,7 +54,9 @@ class App extends Component {
               humidity: data.currently.humidity,
               windSpeed: data.currently.windSpeed,
               summary: data.currently.summary,
-              city: data.timezone
+              city: data.timezone,
+              hourly: data.hourly.data,
+              isLoading: false
             })
           })
       })
@@ -75,7 +78,10 @@ class App extends Component {
           humidity={this.state.humidity}
           windSpeed={this.state.windSpeed}
           summary={this.state.summary}
-          city={this.state.city} />
+          city={this.state.city}
+          hourly={this.state.hourly}
+          isLoading={this.state.isLoading}
+        />
         <Footer />
       </div>
     );
