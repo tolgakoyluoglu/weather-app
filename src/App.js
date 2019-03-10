@@ -26,7 +26,6 @@ class App extends Component {
     summary: [],
     city: [],
     hourly: [],
-    isLoading: true
   }
 
   getLocationThenWeather = (e) => {
@@ -56,10 +55,17 @@ class App extends Component {
               summary: data.currently.summary,
               city: data.timezone,
               hourly: data.hourly.data,
-              isLoading: false
+              isLoading: false,
+              celsius: false,
             })
           })
       })
+  }
+
+  toggleTemp = () => {
+    this.setState({
+      celsius: !this.state.celsius
+    })
   }
 
   render() {
@@ -80,7 +86,8 @@ class App extends Component {
           summary={this.state.summary}
           city={this.state.city}
           hourly={this.state.hourly}
-          isLoading={this.state.isLoading}
+          celsius={this.state.celsius}
+          toggleTemp={this.toggleTemp}
         />
         <Footer />
       </div>

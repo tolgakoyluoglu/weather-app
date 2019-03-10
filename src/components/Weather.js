@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import axios from 'axios';
 import CurrentIcon from './Icon'
 import Loader from '../assets/SVG/loader.svg'
 
@@ -20,30 +19,38 @@ export default class Weather extends Component {
         city: [],
         hourly: [],
         isLoading: true,
+        celsius: false,
     }
 
     componentDidMount() {
         document.querySelector('.container-two').style.display = 'none';
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition((position) => {
-                axios.get(`${darkskyBaseUrl}${darkskyKey}/${position.coords.latitude},${position.coords.longitude}?units=si`)
-                    .then(res => {
+                fetch(`${darkskyBaseUrl}${darkskyKey}/${position.coords.latitude},${position.coords.longitude}?units=si`)
+                    .then(res => res.json()).then(res => {
                         this.setState({
-                            weeklyWeather: res.data.daily.data,
-                            apparentTemperature: res.data.currently.apparentTemperature,
-                            icon: res.data.currently.icon,
-                            temperature: res.data.currently.temperature,
-                            time: res.data.currently.time,
-                            humidity: res.data.currently.humidity,
-                            windSpeed: res.data.currently.windSpeed,
-                            summary: res.data.currently.summary,
-                            city: res.data.timezone,
-                            hourly: res.data.hourly.data,
+                            weeklyWeather: res.daily.data,
+                            apparentTemperature: res.currently.apparentTemperature,
+                            icon: res.currently.icon,
+                            temperature: res.currently.temperature,
+                            time: res.currently.time,
+                            humidity: res.currently.humidity,
+                            windSpeed: res.currently.windSpeed,
+                            summary: res.currently.summary,
+                            city: res.timezone,
+                            hourly: res.hourly.data,
                             isLoading: false
                         })
+                        console.log(this.state)
                     })
             })
         }
+    }
+
+    toggleTemp = () => {
+        this.setState({
+            celsius: !this.state.celsius
+        })
     }
 
     render() {
@@ -56,8 +63,8 @@ export default class Weather extends Component {
                         <CurrentIcon icon={weatherPerDay.icon} />
                     </div>
                     <ul className="list-group list-group-flush">
-                        <li className="list-group-item">Max: <strong>{weatherPerDay.temperatureMax}°</strong></li>
-                        <li className="list-group-item">Min: <strong> {weatherPerDay.temperatureMin}°</strong></li>
+                        <li className="list-group-item">Max: <strong>{this.state.celsius ? ((weatherPerDay.temperatureMax - 32) * 5 / 9).toFixed() + ' °F' : weatherPerDay.temperatureMax.toFixed() + ' °C'}</strong></li>
+                        <li className="list-group-item">Min: <strong> {this.state.celsius ? ((weatherPerDay.temperatureMin - 32) * 5 / 9).toFixed() + ' °F' : weatherPerDay.temperatureMin.toFixed() + ' °C'}</strong></li>
                         <li className="list-group-item-one">Sunrise:  {new Date(weatherPerDay.sunriseTime * 1000).toLocaleString('it-IT')}</li>
                         <li className="list-group-item-one">Sunset:  {new Date(weatherPerDay.sunsetTime * 1000).toLocaleString('it-IT')}</li>
                     </ul>
@@ -82,7 +89,7 @@ export default class Weather extends Component {
                         <div className="card-body-hour">
                             <h5 className="card-title">{new Date(data.time * 1000).toLocaleString('it-IT')}</h5>
                             <CurrentIcon icon={data.icon} />
-                            <p>{data.temperature}°</p>
+                            <p>{this.state.celsius ? ((data.temperature - 32) * 5 / 9).toFixed() + ' °F' : data.temperature.toFixed() + ' °C'}</p>
                         </div>
                     </div>
                 )
@@ -102,20 +109,21 @@ export default class Weather extends Component {
                 <section>
                     <div className="container-one">
                         <h5>Weather in {this.state.city}</h5>
+                        <button className="toggleTemp" onClick={this.toggleTemp}>°F / °C</button>
                         <div className="wrap">
                             <div className="card">
                                 <div className="card-body">
                                     <h5 className="card-title">{new Date(this.state.time * 1000).toDateString()}</h5>
-                                    <p className="temp">{this.state.temperature}°</p>
+                                    <p className="temp">{this.state.celsius ? ((this.state.temperature - 32) * 5 / 9).toFixed() + ' °F' : this.state.temperature.toFixed() + ' °C'}</p>
                                     <div className="img-wrap">
                                         <CurrentIcon icon={this.state.icon} />
                                     </div>
-                                    <p className="card-text">{this.state.summary}</p>
                                 </div>
-                                <ul className="list-group list-group-flush">
-                                    <li className="list-group-item">Windspeed: {this.state.windSpeed}</li>
-                                    <li className="list-group-item">Humidity: {this.state.humidity}</li>
-                                    <li className="list-group-item">Feels like: {this.state.apparentTemperature}</li>
+                                <ul className="listone">
+                                    <li className="list-group-item">{this.state.summary}</li>
+                                    <li className="list-group-item">Windspeed: {this.state.windSpeed} km/h</li>
+                                    <li className="list-group-item">Humidity: {(this.state.humidity * 100).toFixed(0)} %</li>
+                                    <li className="list-group-item">Feels like: {this.state.celsius ? ((this.state.temperature - 32) * 5 / 9).toFixed() + ' °F' : this.state.temperature.toFixed() + ' °C'}</li>
                                 </ul>
                             </div>
                         </div>
