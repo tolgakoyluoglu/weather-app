@@ -73,7 +73,7 @@ export default class Weather extends Component {
         let hourly = this.state.hourly
         let result = []
 
-        for (let i = 0; i < 24; i += 3) {
+        for (let i = 0; i < 25; i += 3) {
             if (hourly[i]) {
                 result.push(hourly[i])
             }
