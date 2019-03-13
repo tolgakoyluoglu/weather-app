@@ -41,7 +41,6 @@ export default class Weather extends Component {
                             hourly: res.hourly.data,
                             isLoading: false
                         })
-                        console.log(this.state)
                     })
             })
         }
@@ -65,8 +64,7 @@ export default class Weather extends Component {
                     <ul className="list-group list-group-flush">
                         <li className="list-group-item">Max: <strong>{this.state.celsius ? ((weatherPerDay.temperatureMax - 32) * 5 / 9).toFixed() + ' °F' : weatherPerDay.temperatureMax.toFixed() + ' °C'}</strong></li>
                         <li className="list-group-item">Min: <strong> {this.state.celsius ? ((weatherPerDay.temperatureMin - 32) * 5 / 9).toFixed() + ' °F' : weatherPerDay.temperatureMin.toFixed() + ' °C'}</strong></li>
-                        <li className="list-group-item-one">Sunrise:  {new Date(weatherPerDay.sunriseTime * 1000).toLocaleString('it-IT')}</li>
-                        <li className="list-group-item-one">Sunset:  {new Date(weatherPerDay.sunsetTime * 1000).toLocaleString('it-IT')}</li>
+
                     </ul>
                 </div>
             )
@@ -118,9 +116,11 @@ export default class Weather extends Component {
                                     <div className="img-wrap">
                                         <CurrentIcon icon={this.state.icon} />
                                     </div>
+                                    <p>{this.state.summary}</p>
                                 </div>
                                 <ul className="listone">
-                                    <li className="list-group-item">{this.state.summary}</li>
+                                    <li className="list-group-item">Sunrise:  {new Date(this.state.weeklyWeather[0].sunriseTime * 1000).toLocaleString('it-IT')}</li>
+                                    <li className="list-group-item">Sunset:  {new Date(this.state.weeklyWeather[0].sunsetTime * 1000).toLocaleString('it-IT')}</li>
                                     <li className="list-group-item">Windspeed: {this.state.windSpeed} km/h</li>
                                     <li className="list-group-item">Humidity: {(this.state.humidity * 100).toFixed(0)} %</li>
                                     <li className="list-group-item">Feels like: {this.state.celsius ? ((this.state.temperature - 32) * 5 / 9).toFixed() + ' °F' : this.state.temperature.toFixed() + ' °C'}</li>

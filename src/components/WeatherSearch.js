@@ -5,7 +5,7 @@ import CurrentIcon from './Icon'
 export default class WeatherSearch extends Component {
 
     render() {
-        const weeklyWeather = this.props.weeklyWeatherSearch
+        const weeklyWeather = this.props.weeklyWeather
         const weeklyWeatherList = weeklyWeather.map(weatherPerDay => {
             return (
                 <div className="card-two" key={weatherPerDay.time}>
@@ -16,13 +16,10 @@ export default class WeatherSearch extends Component {
                     <ul className="list-group list-group-flush">
                         <li className="list-group-item">Max: <strong>{this.props.celsius ? ((weatherPerDay.temperatureMax - 32) * 5 / 9).toFixed() + ' °F' : weatherPerDay.temperatureMax.toFixed() + ' °C'}</strong></li>
                         <li className="list-group-item">Min: <strong> {this.props.celsius ? ((weatherPerDay.temperatureMin - 32) * 5 / 9).toFixed() + ' °F' : weatherPerDay.temperatureMin.toFixed() + ' °C'}</strong></li>
-                        <li className="list-group-item-one">Sunrise:  {new Date(weatherPerDay.sunriseTime * 1000).toLocaleString('it-IT')}</li>
-                        <li className="list-group-item-one">Sunset:  {new Date(weatherPerDay.sunsetTime * 1000).toLocaleString('it-IT')}</li>
                     </ul>
                 </div>
             )
         }),
-
 
             weatherSearchResult = () => {
                 if (this.props.temperature !== null) {
@@ -38,9 +35,11 @@ export default class WeatherSearch extends Component {
                                         <div className="img-wrap">
                                             <CurrentIcon icon={this.props.icon} />
                                         </div>
+                                        <p>{this.props.summary}</p>
                                     </div>
                                     <ul className="listone">
-                                        <li className="list-group-item">{this.props.summary}</li>
+                                        <li className="list-group-item">Sunrise:  {new Date(this.props.weeklyweatherDayOne.sunriseTime * 1000).toLocaleString('it-IT')}</li>
+                                        <li className="list-group-item">Sunset:  {new Date(this.props.weeklyweatherDayOne.sunsetTime * 1000).toLocaleString('it-IT')}</li>
                                         <li className="list-group-item">Windspeed: {this.props.windSpeed} km/h</li>
                                         <li className="list-group-item">Humidity: {(this.props.humidity * 100).toFixed(0)} %</li>
                                         <li className="list-group-item">Feels like: {this.props.celsius ? ((this.props.apparentTemperature - 32) * 5 / 9).toFixed() + ' °F' : this.props.apparentTemperature + ' °C'}</li>
@@ -57,7 +56,6 @@ export default class WeatherSearch extends Component {
                     )
                 }
             }
-
 
         let hourly = this.props.hourly
         let result = []

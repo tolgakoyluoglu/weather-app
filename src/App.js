@@ -14,7 +14,7 @@ const darkskyBaseUrl = 'https://cors-anywhere.herokuapp.com/https://api.darksky.
 
 class App extends Component {
   state = {
-    weeklyWeatherSearch: [],
+    weeklyWeather: [],
     lat: [],
     lng: [],
     apparentTemperature: [],
@@ -26,6 +26,7 @@ class App extends Component {
     summary: [],
     city: [],
     hourly: [],
+    weeklyweatherDayOne: [],
   }
 
   getLocationThenWeather = (e) => {
@@ -45,7 +46,8 @@ class App extends Component {
           .then(res => res.json())
           .then(data => {
             this.setState({
-              weeklyWeatherSearch: data.daily.data,
+              weeklyWeather: data.daily.data,
+              weeklyweatherDayOne: data.daily.data[0],
               apparentTemperature: data.currently.apparentTemperature,
               icon: data.currently.icon,
               temperature: data.currently.temperature,
@@ -76,7 +78,8 @@ class App extends Component {
         <Search getLocationThenWeather={this.getLocationThenWeather} />
         <Weather />
         <WeatherSearch
-          weeklyWeatherSearch={this.state.weeklyWeatherSearch}
+          weeklyweatherDayOne={this.state.weeklyweatherDayOne}
+          weeklyWeather={this.state.weeklyWeather}
           apparentTemperature={this.state.apparentTemperature}
           icon={this.state.icon}
           temperature={this.state.temperature}
