@@ -60,7 +60,7 @@ self.__precacheManifest = [
     "url": "/weather-app/static/media/loader.a3cc993b.svg"
   },
   {
-    "revision": "cab6b3ea6c61b90cbc0a75382ba837a2",
+    "revision": "c7913d0ee64db39807d75c35b044b496",
     "url": "/weather-app/index.html"
   }
 ];
