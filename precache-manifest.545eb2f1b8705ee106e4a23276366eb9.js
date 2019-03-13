@@ -4,7 +4,7 @@ self.__precacheManifest = [
     "url": "/weather-app/static/media/partly-cloudy-day.a86e0ddc.svg"
   },
   {
-    "revision": "1de80e19e2ab18acffff",
+    "revision": "80288b6e155b03e5fe52",
     "url": "/weather-app/static/css/main.cb5632ed.chunk.css"
   },
   {
@@ -32,8 +32,8 @@ self.__precacheManifest = [
     "url": "/weather-app/static/media/fog.859941bd.svg"
   },
   {
-    "revision": "1de80e19e2ab18acffff",
-    "url": "/weather-app/static/js/main.1de80e19.chunk.js"
+    "revision": "80288b6e155b03e5fe52",
+    "url": "/weather-app/static/js/main.80288b6e.chunk.js"
   },
   {
     "revision": "d2bc0010430c830114925d639a0239e8",
@@ -60,7 +60,7 @@ self.__precacheManifest = [
     "url": "/weather-app/static/media/loader.a3cc993b.svg"
   },
   {
-    "revision": "c7913d0ee64db39807d75c35b044b496",
+    "revision": "853ce37bcea5cf052b89766742c96687",
     "url": "/weather-app/index.html"
   }
 ];
