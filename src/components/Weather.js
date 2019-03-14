@@ -41,6 +41,7 @@ export default class Weather extends Component {
                             hourly: res.hourly.data,
                             isLoading: false
                         })
+                        console.log(this.state)
                     })
             })
         }
@@ -64,7 +65,6 @@ export default class Weather extends Component {
                     <ul className="list-group list-group-flush">
                         <li className="list-group-item">Max: <strong>{this.state.celsius ? ((weatherPerDay.temperatureMax - 32) * 5 / 9).toFixed() + ' °F' : weatherPerDay.temperatureMax.toFixed() + ' °C'}</strong></li>
                         <li className="list-group-item">Min: <strong> {this.state.celsius ? ((weatherPerDay.temperatureMin - 32) * 5 / 9).toFixed() + ' °F' : weatherPerDay.temperatureMin.toFixed() + ' °C'}</strong></li>
-
                     </ul>
                 </div>
             )

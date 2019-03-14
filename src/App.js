@@ -7,7 +7,7 @@ import Search from './components/Search';
 import WeatherSearch from './components/WeatherSearch';
 
 const locationKey = 'D3bucmtmT9Y2J2ObSbiR3pVOsaB4baUE';
-const locationBaseUrl = 'http://open.mapquestapi.com/geocoding/v1/address?key=';
+const locationBaseUrl = 'https://open.mapquestapi.com/geocoding/v1/address?key=';
 
 const darkskyKey = 'a454df907d79a1e59fe04ca230be5860';
 const darkskyBaseUrl = 'https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/';
